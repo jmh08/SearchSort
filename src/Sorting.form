@@ -47,7 +47,7 @@
           </grid>
         </constraints>
         <properties>
-          <editable value="true"/>
+          <editable value="false"/>
         </properties>
       </component>
       <component id="39ff8" class="javax.swing.JTextArea" binding="textArea2" default-binding="true">
@@ -57,7 +57,7 @@
           </grid>
         </constraints>
         <properties>
-          <editable value="true"/>
+          <editable value="false"/>
         </properties>
       </component>
       <component id="a2951" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
@@ -129,7 +129,7 @@
           </grid>
         </constraints>
         <properties>
-          <editable value="true"/>
+          <editable value="false"/>
         </properties>
       </component>
       <component id="30ce2" class="javax.swing.JButton" binding="searchButton" default-binding="true">
