@@ -20,7 +20,9 @@ public class Sorting extends JFrame {
     private JButton searchButton;
     private JTextField textField2;
     private JCheckBox eigenerArrayCheckBox;
+    private JComboBox comboBox3;
     private int[] unsortiert;
+    private boolean sortiert = true;
 
     public Sorting() {
         textField2.setEnabled(false);
@@ -66,11 +68,13 @@ public class Sorting extends JFrame {
                     if (eigenerArrayCheckBox.isSelected()) {
                         textField2.setEnabled(true);
                         comboBox1.setEnabled(false);
+                        button1.setEnabled(false);
                 }
                     else {
                             textField2.setEnabled(false);
                             comboBox1.setEnabled(true);
                             textField2.setText("");
+                            button1.setEnabled(true);
                     }
             }
         });
@@ -152,21 +156,62 @@ public class Sorting extends JFrame {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                try {
-                    int search = Integer.parseInt(textField1.getText());
-                    for (int i = 0; i < unsortiert.length; i++) {
-                        if (unsortiert[i] == search) {
-                            textArea3.setText("Dein gesuchter Wert befindet sich an der Stelle " + (i + 1) + " des Arrays");
+                String input = comboBox3.getSelectedItem().toString();
+                int search = Integer.parseInt(textField1.getText());
+                if (input.equals("Linear Search")) {
+                    try {
+                        boolean gefunden = false;
+                        for (int i = 0; i < unsortiert.length; i++) {
+                            if (unsortiert[i] == search) {
+                                textArea3.setText("Dein gesuchter Wert befindet sich an der Stelle " + (i + 1) + " des Arrays");
+                                gefunden = true;
+                            }
                         }
+                        if(!gefunden){
+                            textArea3.setText("Dein gesuchter Wert befindet sich nicht in dem Array");
+                        }
+
+                    } catch (NumberFormatException ex) {
+                        textArea3.setText("Nur Zahlen eigeben!");
                     }
-                }catch(NumberFormatException ex){
-                    textArea3.setText("Nur Zahlen eigeben!");
+                }
+                else if(input.equals("Binary Search")){
+                    BinarySearch binarySearch = new BinarySearch();
+                    binarySearch.Search();
                 }
             }
+
         });
 
     }
+    public class BinarySearch{
+        int l = 0;
+        int r =  unsortiert.length - 1;
+        int x = Integer.parseInt(textField1.getText().toString());
+        public int Search(){
+            int mitte = (l + r)/2;
+            if(l > r || !sortiert){
+                textArea3.setText("Deine Zahl befindete sich entweder nicht in dem Array oder dein Array ist unsortiert");
+                return -1;
+            }
+            if(unsortiert[mitte] == x){
+                textArea3.setText("Der gesuchte Wert befindet sich an der Stelle " + (mitte + 1) + " Stelle des Array");
+            }
+            else if(x > unsortiert[mitte]){
+                l = mitte;
+                return Search();
+            }
+            else{
+                r = mitte;
+                return Search();
+            }
+            return -1;
+        }
+        BinarySearch(){
+
+        }
+    }
+
 
     public static void main(String[] args) {
         Sorting Frame = new Sorting();
